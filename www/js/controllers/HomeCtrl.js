@@ -14,8 +14,6 @@ angular.module('lasius')
 			$scope.createEventModal = modal;
 		});
 
-		console.log($scope.currentUser);
-
 		Seeder.events({
 			id: $scope.currentUser.id,
 			filter: {
@@ -27,9 +25,9 @@ angular.module('lasius')
 		});
 
 		$scope.createEvent = function(){
-			this.newEvent.id = $scope.currentUser.id;
-			console.log(this.newEvent);
-			Seeder.events.create(this.newEvent)
+			Seeder.events.create({
+				id: $scope.currentUser.id
+			}, this.newEvent)
 			.$promise.then(function(plop){
 				console.log(plop);
 			});
