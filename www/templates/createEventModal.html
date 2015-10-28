@@ -1,0 +1,29 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Create an Event</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Title</span>
+        <input type="text" ng-model="newEvent.title" placeholder="Title">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Description</span>
+        <input type="text" ng-model="newEvent.body" placeholder="Description">
+      </label>
+    </div>
+
+    <div class="row">
+      <button class="col button button-clear button-positive"
+        ng-click="createEventModal.hide()">
+        Cancel
+      </button>
+      <button class="col button button-positive"
+        ng-click="createEvent()">
+        Create
+      </button>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

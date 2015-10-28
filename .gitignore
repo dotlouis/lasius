@@ -7,3 +7,5 @@ plugins/
 www/lib/
 www/css/
 resources/
+.sass-cache/
+test/coverage/
