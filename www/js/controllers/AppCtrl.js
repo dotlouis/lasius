@@ -4,18 +4,13 @@ angular.module('lasius')
   '$state',
   '$ionicHistory',
   'Seeder',
+  'signedUser',
   'AuthService',
   '$ionicPopover',
-  function($scope, $state, $ionicHistory, Seeder, Auth,$ionicPopover){
+  function($scope, $state, $ionicHistory, Seeder, signedUser, Auth, $ionicPopover){
 
-    $scope.currentUser = Seeder.getCachedCurrent();
+    $scope.currentUser = signedUser;
     console.log($scope.currentUser);
-
-    Seeder.getCurrent()
-    .$promise.then(function(user){
-      $scope.currentUser = user;
-      console.log(user);
-    });
 
     $scope.logout = function(){
       Auth.logout();

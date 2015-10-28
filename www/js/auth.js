@@ -36,27 +36,14 @@ angular.module('lasius')
         // http://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK#AngularJSJavaScriptSDK-Handling401Unauthorized
         $httpProvider.interceptors.push(function($q, $location) {
             return {
-                responseError: function(rejection) {
+                responseError: function(error) {
                     // Server down or does not answer
                     // Does something to report and queue tasks that can't be executed
                     // due to non 20X status
-                    if(rejection.status === 0)
-                      rejection.data = {error:{message:"Can't reach the server", name:"Error", status: 0, statusCode: 0}};
-                    return $q.reject(rejection.data.error);
+                    if(error.status === 0)
+                      error.data = {message:"Can't reach the server", name:"Error", status: 0, statusCode: 0};
+                    return $q.reject(error);
                 }
             };
-        });
-}])
-
-// The roles defined for front-end auth routing (see routes.js)
-// https://github.com/Narzerus/angular-permission#defining-roles
-.run([
-    'Permission',
-    'Seeder',
-    function(Permission, Seeder){
-        Permission.defineRole('anonymous', function(stateParams){
-            if(!Seeder.isAuthenticated())
-                return true;
-            return false;
         });
 }]);
