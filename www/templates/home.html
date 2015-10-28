@@ -1,0 +1,15 @@
+<ion-view view-title="Home">
+	<ion-content>
+		<button class="button button-full button-positive"
+			ng-click="createEventModal.show()">
+			Create an event
+		</button>
+
+		<ion-list>
+			<ion-item ng-repeat="event in events">
+				<h2>{{event.title}}</h2>
+				<p>{{event.body}}</p>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

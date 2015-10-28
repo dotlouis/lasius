@@ -1,7 +1,6 @@
 {
   "name": "lasius",
   "version": "1.0.0",
-  "description": "lasius: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
