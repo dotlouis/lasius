@@ -6,9 +6,9 @@
 		</button>
 
 		<ion-list>
-			<ion-item ng-repeat="event in events">
-				<h2>{{event.title}}</h2>
-				<p>{{event.body}}</p>
+			<ion-item ng-repeat="event in events"
+				ng-include="'templates/eventCard.html'"
+				class="item-button-right">
 			</ion-item>
 		</ion-list>
 	</ion-content>

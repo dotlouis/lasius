@@ -33,5 +33,8 @@ angular.module('lasius')
 			});
 			$scope.createEventModal.hide();
 		};
+
+		$scope.follow = function(){
+		};
 	}
 ]);
