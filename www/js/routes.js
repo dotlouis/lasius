@@ -25,9 +25,14 @@ angular.module('lasius')
       templateUrl: 'templates/app.html',
       controller:'AppCtrl',
       resolve: {
-        signedUser: function(Seeder){
+        signedUser: function(Seeder, $q){
           // if the user exists/is authenticated, we resolve with it's value
           // so the controllers are only loaded when the user value is injected
+
+          // why the hell is this null ?
+          console.log(Seeder.getCachedCurrent());
+          // in the futur, try to load a cached user instead of hitting the
+          // network each time the app is loaded into memory
           return Seeder.getCurrent().$promise;
         }
       }
