@@ -11,10 +11,11 @@ angular.module('lasius')
       templateUrl:'templates/welcome.html',
       controller:'WelcomeCtrl',
       resolve: {
-        signedUser: function(Seeder, $state){
-          Seeder.getCurrent().$promise.then(function(){
-            $state.go('app.home');
-          });
+        signedUser: function(Seeder, $q){
+          // if the user is authenticated, we don't resolve so he
+          // can't access the welcome state
+          if(Seeder.isAuthenticated())
+            return $q.reject();
         }
       }
     })
@@ -24,10 +25,10 @@ angular.module('lasius')
       templateUrl: 'templates/app.html',
       controller:'AppCtrl',
       resolve: {
-        signedUser: function(Seeder, $state){
-          return Seeder.getCurrent().$promise.catch(function(error){
-            $state.go('welcome');
-          });
+        signedUser: function(Seeder){
+          // if the user exists/is authenticated, we resolve with it's value
+          // so the controllers are only loaded when the user value is injected
+          return Seeder.getCurrent().$promise;
         }
       }
     })
