@@ -14,23 +14,15 @@ angular.module('lasius')
 			$scope.createEventModal = modal;
 		});
 
-		Seeder.events({
-			id: $scope.currentUser.id,
-			filter: {
-				limit: 10
-			}
+		Seeder.following({id:$scope.currentUser.id},{
+			filter: {limit: 10}
 		})
 		.$promise.then(function(events){
 			$scope.events = events;
 		});
 
 		$scope.createEvent = function(){
-			Seeder.events.create({
-				id: $scope.currentUser.id
-			}, this.newEvent)
-			.$promise.then(function(plop){
-				console.log(plop);
-			});
+			Seeder.prototype$newEvent({id:$scope.currentUser.id},this.newEvent);
 			$scope.createEventModal.hide();
 		};
 
