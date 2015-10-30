@@ -19,7 +19,6 @@ angular.module('lasius')
         })
         .catch(function(err){
           // TODO: report error
-          console.log(err);
         });
       },
       logout: function(){

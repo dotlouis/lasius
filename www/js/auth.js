@@ -38,6 +38,9 @@ angular.module('lasius')
 ])
 
 .run(['$rootScope','$state','AuthService','Seeder',function($rootScope, $state, Auth, Seeder){
+  // don't logout whenever there is an unauthorize.
+  // prefer a message (in theory this should never happen)
+  // logout only when the getCurrentId fails.
   $rootScope.$on('unauthorized',function(event, args){
     Auth.logout();
     $state.go('welcome', { message: args.message });

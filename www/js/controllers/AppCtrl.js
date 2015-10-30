@@ -10,7 +10,6 @@ angular.module('lasius')
   function($scope, $state, $ionicHistory, Seeder, signedUser, Auth, $ionicPopover){
 
     $scope.currentUser = signedUser;
-    console.log($scope.currentUser);
 
     $scope.logout = function(){
       Auth.logout();
