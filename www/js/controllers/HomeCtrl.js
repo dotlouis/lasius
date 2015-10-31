@@ -14,19 +14,30 @@ angular.module('lasius')
 			$scope.createEventModal = modal;
 		});
 
-		Seeder.following({id:$scope.currentUser.id},{
-			filter: {limit: 10}
-		})
-		.$promise.then(function(events){
-			$scope.events = events;
-		});
+		$scope.getFollowing = function(){
+			Seeder.prototype$getFollowing({id:$scope.currentUser.id})
+			.$promise.then(function(following){
+				$scope.events = following.events;
+			});
+		};
 
 		$scope.createEvent = function(){
 			Seeder.prototype$newEvent({id:$scope.currentUser.id},this.newEvent);
 			$scope.createEventModal.hide();
 		};
 
-		$scope.follow = function(){
+		$scope.toggleFollow = function(){
+			console.log(this.event);
+			if(this.event.unfollowed){
+				this.event.unfollowed = false;
+				Seeder.prototype$follow({id:$scope.currentUser.id, eventId: this.event.id});
+			}
+			else{
+				this.event.unfollowed = true;
+				Seeder.prototype$unfollow({id:$scope.currentUser.id, eventId: this.event.id});
+			}
 		};
+
+		$scope.getFollowing();
 	}
 ]);
