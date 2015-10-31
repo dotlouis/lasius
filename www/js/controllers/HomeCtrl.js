@@ -2,8 +2,9 @@ angular.module('lasius')
 .controller('HomeCtrl',[
 	'$scope',
 	'$ionicModal',
+	'RequestManager',
 	'Seeder',
-	function($scope, $ionicModal, Seeder){
+	function($scope, $ionicModal, ReqM, Seeder){
 
 		$scope.newEvent = {};
 
@@ -27,14 +28,25 @@ angular.module('lasius')
 		};
 
 		$scope.toggleFollow = function(){
-			console.log(this.event);
-			if(this.event.unfollowed){
-				this.event.unfollowed = false;
-				Seeder.prototype$follow({id:$scope.currentUser.id, eventId: this.event.id});
+			var self = this;
+			var plop;
+			if(self.event.unfollowed){
+				self.event.unfollowed = false;
+				ReqM.bundleAs('follow', function(){
+					Seeder.prototype$follow({
+						id:$scope.currentUser.id,
+						eventId: self.event.id
+					});
+				});
 			}
 			else{
-				this.event.unfollowed = true;
-				Seeder.prototype$unfollow({id:$scope.currentUser.id, eventId: this.event.id});
+				self.event.unfollowed = true;
+				ReqM.bundleAs('follow', function(){
+					Seeder.prototype$unfollow({
+						id:$scope.currentUser.id,
+						eventId: self.event.id
+					});
+				});
 			}
 		};
 
