@@ -1,8 +1,8 @@
 angular.module('lasius')
-.controller('HomeCtrl',[
+.controller('home.controller',[
 	'$scope',
 	'$ionicModal',
-	'DelayerService',
+	'delayer.service',
 	'Seeder',
 	function($scope, $ionicModal, Delayer, Seeder){
 
@@ -12,11 +12,11 @@ angular.module('lasius')
 			$scope.events = following.events;
 		});
 
-		$ionicModal.fromTemplateUrl('templates/createEventModal.html', {
+		$ionicModal.fromTemplateUrl('app/newEventModal/newEventModal.template.html', {
 			scope: $scope,
 			animation: 'slide-in-up'
 		}).then(function(modal) {
-			$scope.createEventModal = modal;
+			$scope.newEventModal = modal;
 		});
 
 		function fetchFollowing(){

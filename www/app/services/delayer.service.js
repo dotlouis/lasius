@@ -1,5 +1,5 @@
 angular.module('lasius')
-.factory('DelayerService',[
+.factory('delayer.service',[
   '$timeout',
   '$q',
   function($timeout, $q){

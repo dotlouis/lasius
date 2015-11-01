@@ -1,9 +1,9 @@
 angular.module('lasius')
-.controller('WelcomeCtrl',[
+.controller('welcome.controller',[
     '$scope',
     '$ionicHistory',
     '$state',
-    'AuthService',
+    'auth.service',
     function($scope, $ionicHistory, $state, Auth){
 
         $scope.loginWith = function(provider){

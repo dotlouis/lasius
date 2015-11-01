@@ -1,7 +1,7 @@
 angular.module('lasius')
-.controller('CreateEventCtrl',[
+.controller('newEventModal.controller',[
   '$scope',
-  'DelayerService',
+  'delayer.service',
   'Seeder',
   function($scope, Delayer, Seeder){
 
@@ -9,7 +9,7 @@ angular.module('lasius')
     $scope.createEvent = new Delayer([createEvent]);
 
     function createEvent(){
-      $scope.createEventModal.hide();
+      $scope.newEventModal.hide();
       return Seeder.prototype$newEvent({
         id: $scope.currentUser.id
       }, $scope.newEvent).$promise;

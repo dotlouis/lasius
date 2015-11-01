@@ -1,5 +1,5 @@
 angular.module('lasius')
-.factory('AuthService',[
+.factory('auth.service',[
   '$auth',
   '$q',
   'LoopBackAuth',

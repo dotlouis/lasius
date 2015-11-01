@@ -1,11 +1,11 @@
 angular.module('lasius')
-.controller('AppCtrl',[
+.controller('main.controller',[
   '$scope',
   '$state',
   '$ionicHistory',
   'Seeder',
   'signedUser',
-  'AuthService',
+  'auth.service',
   '$ionicPopover',
   function($scope, $state, $ionicHistory, Seeder, signedUser, Auth, $ionicPopover){
 
@@ -20,7 +20,7 @@ angular.module('lasius')
       $state.go('welcome');
     };
 
-    $ionicPopover.fromTemplateUrl('templates/menuPopover.html', {
+    $ionicPopover.fromTemplateUrl('app/menuPopover/menuPopover.template.html', {
       scope: $scope
     }).then(function(popover) {
       $scope.popover = popover;
