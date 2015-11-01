@@ -11,8 +11,9 @@ angular.module('lasius')
     if(!options)
       options = {};
 
-    this.delay = typeof options.delay !== 'undefined' ? options.delay : 3000;
     this.fns = fns;
+    this.delay = typeof options.delay !== 'undefined' ? options.delay : 3000;
+    this.block = typeof options.block !== 'undefined' ? options.block : this.fns.length > 1 ? false : true;
     this.current = 0;
     this.hits = 0;
   };
@@ -31,7 +32,7 @@ angular.module('lasius')
     // if mutliple functions (toggle with 2 or more positions)
     // we wait for the position to be considered "stable" before calling the
     // associated function
-    if(this.fns.length > 1){
+    if(!this.block){
 
       // if there is a timeout function running, we cancel it
       if(this.timeout && this.timeout.$$state.status === 0)
@@ -39,7 +40,7 @@ angular.module('lasius')
 
       // but we don't call the function if the "stablized" function is the same
       // as the one we started at
-      if((this.hits > 0) && (this.hits%this.fns.length === this.current)){
+      if((this.hits > 0) && (this.hits%this.fns.length === this.current) && (this.fns.length > 1)){
         this.hits = 0;
       }
       else{
