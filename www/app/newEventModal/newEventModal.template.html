@@ -6,11 +6,11 @@
     <div class="list">
       <label class="item item-input item-floating-label">
         <span class="input-label">Title</span>
-        <input type="text" ng-model="newEvent.title" placeholder="Title">
+        <input type="text" ng-model="inputs.title" placeholder="Title">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Description</span>
-        <input type="text" ng-model="newEvent.body" placeholder="Description">
+        <input type="text" ng-model="inputs.body" placeholder="Description">
       </label>
     </div>
 
@@ -20,8 +20,8 @@
         Cancel
       </button>
       <button class="col button button-positive"
-        ng-click="createEvent.toggle()"
-        ng-disabled="!newEvent.title">
+        ng-click="newEvent.toggle()"
+        ng-disabled="!inputs.title">
         Create
       </button>
     </div>

@@ -5,14 +5,18 @@ angular.module('lasius')
   'Seeder',
   function($scope, Delayer, Seeder){
 
-    $scope.newEvent = {};
-    $scope.createEvent = new Delayer([createEvent]);
+    $scope.inputs = {
+      title: '',
+      body: ''
+    };
+    
+    $scope.newEvent = new Delayer([newEvent]);
 
-    function createEvent(){
+    function newEvent(){
       $scope.newEventModal.hide();
       return Seeder.prototype$newEvent({
         id: $scope.currentUser.id
-      }, $scope.newEvent).$promise;
+      }, $scope.inputs).$promise;
     }
 
   }
