@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view ng-controller="CreateEventCtrl">
   <ion-header-bar>
     <h1 class="title">Create an Event</h1>
   </ion-header-bar>
@@ -20,7 +20,7 @@
         Cancel
       </button>
       <button class="col button button-positive"
-        ng-click="createEvent.toggle(newEvent)"
+        ng-click="createEvent.toggle()"
         ng-disabled="!newEvent.title">
         Create
       </button>
