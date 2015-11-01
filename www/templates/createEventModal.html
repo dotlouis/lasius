@@ -20,7 +20,8 @@
         Cancel
       </button>
       <button class="col button button-positive"
-        ng-click="createEvent()">
+        ng-click="createEvent.toggle(newEvent)"
+        ng-disabled="!newEvent.title">
         Create
       </button>
     </div>

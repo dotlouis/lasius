@@ -1,6 +1,6 @@
 <h2>{{event.title}}</h2>
 <button class="button button-outline button-positive"
-  ng-click="toggleFollow()">
-  {{event.unfollowed ? 'follow':'unfollow'}}
+  ng-click="event.state.toggle(event)">
+  {{event.state.currentFn == 'unfollow' ? 'follow':'unfollow'}}
 </button>
 <p>{{event.body}}</p>
