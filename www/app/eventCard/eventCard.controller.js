@@ -1,7 +1,7 @@
 angular.module('lasius')
-.controller('EventCardCtrl',[
+.controller('eventCard.controller',[
   '$scope',
-  'DelayerService',
+  'delayer.service',
   'Seeder',
   function($scope, Delayer, Seeder){
 

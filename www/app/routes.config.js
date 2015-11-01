@@ -8,8 +8,8 @@ angular.module('lasius')
     $stateProvider
     .state('welcome',{
       url:'/welcome',
-      templateUrl:'templates/welcome.html',
-      controller:'WelcomeCtrl',
+      templateUrl:'app/welcome/welcome.template.html',
+      controller:'welcome.controller',
       resolve: {
         signedUser: function(Seeder, $q){
           // if the user is authenticated, we don't resolve so he
@@ -22,16 +22,16 @@ angular.module('lasius')
     .state('app', {
       url: '/app',
       abstract: true,
-      templateUrl: 'templates/app.html',
-      controller:'AppCtrl',
+      templateUrl: 'app/main/main.template.html',
+      controller:'main.controller',
       resolve: {
-        signedUser: function(Seeder, $q){
+        signedUser: function(Seeder){
           // if the user exists/is authenticated, we resolve with it's value
           // so the controllers are only loaded when the user value is injected
 
           // why the hell is this null ?
           // console.log(Seeder.getCachedCurrent());
-          
+
           // in the futur, try to load a cached user instead of hitting the
           // network each time the app is loaded into memory
           return Seeder.getCurrent().$promise;
@@ -42,8 +42,8 @@ angular.module('lasius')
       url: '/home',
       views: {
         'main@app': {
-          templateUrl: 'templates/home.html',
-          controller: 'HomeCtrl'
+          templateUrl: 'app/home/home.template.html',
+          controller: 'home.controller'
         }
       }
     });

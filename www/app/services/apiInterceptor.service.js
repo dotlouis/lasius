@@ -1,5 +1,5 @@
 angular.module('lasius')
-.factory('APIInterceptor', [
+.factory('apiInterceptor.service', [
   '$q',
   '$injector',
   '$rootScope',

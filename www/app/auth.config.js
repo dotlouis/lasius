@@ -33,11 +33,15 @@ angular.module('lasius')
     }));
 
     // Handling errors
-    $httpProvider.interceptors.push('APIInterceptor');
+    $httpProvider.interceptors.push('apiInterceptor.service');
   }
 ])
 
-.run(['$rootScope','$state','AuthService','Seeder',function($rootScope, $state, Auth, Seeder){
+.run([
+  '$rootScope',
+  '$state',
+  'auth.service',
+  'Seeder',function($rootScope, $state, Auth, Seeder){
   // don't logout whenever there is an unauthorize.
   // prefer a message (in theory this should never happen)
   // logout only when the getCurrentId fails.
