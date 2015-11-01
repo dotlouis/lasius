@@ -12,10 +12,7 @@ angular.module('lasius')
 
 		$scope.fetchFollowing.toggle()
 		.then(function(following){
-			$scope.events = following.events.map(function(event){
-				event.state = new Delayer([unfollow, follow]);
-				return event;
-			});
+			$scope.events = following.events;
 		});
 
 		$ionicModal.fromTemplateUrl('templates/createEventModal.html', {
@@ -36,20 +33,6 @@ angular.module('lasius')
 			return Seeder.prototype$newEvent({
 				id:$scope.currentUser.id
 			},newEvent).$promise;
-		}
-
-		function follow(event){
-			return Seeder.prototype$follow({
-				id:$scope.currentUser.id,
-				eventId: event.id
-			}).$promise;
-		}
-
-		function unfollow(event){
-			return Seeder.prototype$unfollow({
-				id:$scope.currentUser.id,
-				eventId: event.id
-			}).$promise;
 		}
 
 	}
