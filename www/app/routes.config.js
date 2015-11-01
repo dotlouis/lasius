@@ -52,6 +52,15 @@ angular.module('lasius')
           controller: 'home.controller'
         }
       }
+    })
+    .state('app.search', {
+      url: '/search',
+      views: {
+        'main@app': {
+          templateUrl: 'app/search/search.template.html',
+          controller: 'search.controller'
+        }
+      }
     });
     // if none of the above states are matched, use this as the fallback
     // see https://github.com/Narzerus/angular-permission/issues/65#issuecomment-107104983
