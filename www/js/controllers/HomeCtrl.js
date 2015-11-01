@@ -2,11 +2,21 @@ angular.module('lasius')
 .controller('HomeCtrl',[
 	'$scope',
 	'$ionicModal',
-	'RequestManager',
+	'DelayerService',
 	'Seeder',
-	function($scope, $ionicModal, ReqM, Seeder){
+	function($scope, $ionicModal, Delayer, Seeder){
 
 		$scope.newEvent = {};
+		$scope.createEvent = new Delayer([createEvent]);
+		$scope.fetchFollowing = new Delayer([fetchFollowing]);
+
+		$scope.fetchFollowing.toggle()
+		.then(function(following){
+			$scope.events = following.events.map(function(event){
+				event.state = new Delayer([unfollow, follow]);
+				return event;
+			});
+		});
 
 		$ionicModal.fromTemplateUrl('templates/createEventModal.html', {
 			scope: $scope,
@@ -15,41 +25,32 @@ angular.module('lasius')
 			$scope.createEventModal = modal;
 		});
 
-		$scope.getFollowing = function(){
-			Seeder.prototype$getFollowing({id:$scope.currentUser.id})
-			.$promise.then(function(following){
-				$scope.events = following.events;
-			});
-		};
+		function fetchFollowing(){
+			return Seeder.prototype$getFollowing({
+				id:$scope.currentUser.id
+			}).$promise;
+		}
 
-		$scope.createEvent = function(){
-			Seeder.prototype$newEvent({id:$scope.currentUser.id},this.newEvent);
+		function createEvent(newEvent){
 			$scope.createEventModal.hide();
-		};
+			return Seeder.prototype$newEvent({
+				id:$scope.currentUser.id
+			},newEvent).$promise;
+		}
 
-		$scope.toggleFollow = function(){
-			var self = this;
-			var plop;
-			if(self.event.unfollowed){
-				self.event.unfollowed = false;
-				ReqM.bundleAs('follow', function(){
-					Seeder.prototype$follow({
-						id:$scope.currentUser.id,
-						eventId: self.event.id
-					});
-				});
-			}
-			else{
-				self.event.unfollowed = true;
-				ReqM.bundleAs('follow', function(){
-					Seeder.prototype$unfollow({
-						id:$scope.currentUser.id,
-						eventId: self.event.id
-					});
-				});
-			}
-		};
+		function follow(event){
+			return Seeder.prototype$follow({
+				id:$scope.currentUser.id,
+				eventId: event.id
+			}).$promise;
+		}
 
-		$scope.getFollowing();
+		function unfollow(event){
+			return Seeder.prototype$unfollow({
+				id:$scope.currentUser.id,
+				eventId: event.id
+			}).$promise;
+		}
+
 	}
 ]);
