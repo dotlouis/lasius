@@ -8,6 +8,7 @@
 		<ion-list>
 			<ion-item ng-repeat="event in events"
 				ng-include="'templates/eventCard.html'"
+				ng-controller="EventCardCtrl"
 				class="item-button-right">
 			</ion-item>
 		</ion-list>
