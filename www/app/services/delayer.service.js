@@ -12,7 +12,7 @@ angular.module('lasius')
       options = {};
 
     this.fns = fns;
-    this.delay = typeof options.delay !== 'undefined' ? options.delay : 3000;
+    this.delay = typeof options.delay !== 'undefined' ? options.delay : 2000;
     this.block = typeof options.block !== 'undefined' ? options.block : this.fns.length > 1 ? false : true;
     this.current = 0;
     this.hits = 0;
