@@ -3,8 +3,8 @@ angular.module('lasius')
 	'$scope',
 	'$ionicModal',
 	'delayer.service',
-	'Seeder',
-	function($scope, $ionicModal, Delayer, Seeder){
+	'Event',
+	function($scope, $ionicModal, Delayer, Event){
 
     $scope.inputs = {
       query:''
@@ -16,7 +16,12 @@ angular.module('lasius')
     });
 
     function search(){
-      console.log($scope.inputs.query);
+      return Event.esSearch({
+        queryString: $scope.inputs.query
+      }).$promise
+      .then(function(results){
+        $scope.events = results.events;
+      });
     }
 	}
 ]);
