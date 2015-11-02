@@ -3,8 +3,19 @@
     <div class="list list-inset">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search" ng-model="inputs.query" ng-change="search.toggle()">
+        <input type="text" placeholder="Search"
+          ng-model="inputs.query"
+          ng-change="search.toggle()">
       </label>
     </div>
+
+    <ion-list>
+			<ion-item ng-repeat="event in events"
+				ng-include="'app/eventCard/eventCard.template.html'"
+				ng-controller="eventCard.controller"
+				class="item-button-right">
+			</ion-item>
+		</ion-list>
+
   </ion-content>
 </ion-view>
