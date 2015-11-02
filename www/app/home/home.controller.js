@@ -6,10 +6,13 @@ angular.module('lasius')
 	'Seeder',
 	function($scope, $ionicModal, Delayer, Seeder){
 
-		$scope.fetchFollowing = new Delayer([fetchFollowing])
-		.toggle()
-		.then(function(following){
-			$scope.events = following.events;
+		$scope.fetchFollowing = new Delayer([fetchFollowing]);
+
+		$scope.$on('$ionicView.enter', function(){
+			$scope.fetchFollowing.toggle()
+			.then(function(following){
+				$scope.events = following.events;
+			});
 		});
 
 		$ionicModal.fromTemplateUrl('app/newEventModal/newEventModal.template.html', {
