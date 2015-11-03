@@ -46,16 +46,16 @@ angular.module('lasius')
   // don't logout whenever there is an unauthorize.
   // prefer a message (in theory this should never happen)
   // logout only when the getCurrentId fails.
-  // $rootScope.$on('unauthorized',function(event, args){
-  //   Auth.logout();
-  //   $state.go('welcome', { message: args.message });
-  // });
-  // $rootScope.$on('serverUnavailable',function(event, args){
-  //   // for now logout the user to avoid a BSoD
-  //   // in the futur implement some kind of cache so even if the server
-  //   // is unavailable the user can still use the app.
-  //   // see the resolve function in routes.js
-  //     Auth.logout();
-  //     $state.go('welcome', { message: args.message });
-  // });
+  $rootScope.$on('unauthorized',function(event, args){
+    Auth.logout();
+    $state.go('welcome', { message: args.message });
+  });
+  $rootScope.$on('serverUnavailable',function(event, args){
+    // for now logout the user to avoid a BSoD
+    // in the futur implement some kind of cache so even if the server
+    // is unavailable the user can still use the app.
+    // see the resolve function in routes.js
+      Auth.logout();
+      $state.go('welcome', { message: args.message });
+  });
 }]);
