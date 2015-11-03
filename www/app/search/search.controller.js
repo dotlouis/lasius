@@ -2,10 +2,18 @@ angular.module('lasius')
 .controller('search.controller',[
 	'$scope',
 	'$ionicModal',
+	'$stateParams',
 	'delayer.service',
 	'query.service',
   'Event',
-	function($scope, $ionicModal, Delayer, Query, Event){
+	function($scope, $ionicModal, $stateParams, Delayer, Query, Event){
+
+		$scope.$on('$ionicView.enter', function(){
+			if(typeof $stateParams.query === 'string'){
+				$scope.inputs.query = $stateParams.query;
+				$scope.search.toggle();
+			}
+		});
 
     $scope.inputs = {
       query:''

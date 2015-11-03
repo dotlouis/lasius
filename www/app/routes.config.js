@@ -54,7 +54,7 @@ angular.module('lasius')
       }
     })
     .state('app.search', {
-      url: '/search',
+      url: '/search?query',
       views: {
         'main@app': {
           templateUrl: 'app/search/search.template.html',
