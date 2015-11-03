@@ -1,6 +1,13 @@
+<style>
+.hashtag{
+  color: #387ef5;
+  text-decoration: none;
+}
+</style>
+
 <h2>{{event.title}}</h2>
 <button class="button button-outline button-positive"
   ng-click="event.state.toggle()">
   {{event.state.currentFn == 'unfollow' ? 'follow':'unfollow'}}
 </button>
-<p>{{event.body}}</p>
+<p bind-html-compile="event.body | hashtags"></p>

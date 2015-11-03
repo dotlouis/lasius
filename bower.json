@@ -5,6 +5,10 @@
     "ionic": "driftyco/ionic-bower#1.1.0",
     "lbservices": "git@bitbucket.org:studant/lbservices.git",
     "satellizer": "0.12.5",
-    "angular-resource": "1.4.3"
+    "angular-resource": "1.4.3",
+    "angular-bind-html-compile": "1.1.0"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }

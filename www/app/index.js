@@ -2,5 +2,6 @@ angular.module('lasius',[
     'ionic',
     'ngResource',
     'satellizer',
-    'lbServices'
+    'lbServices',
+    'angular-bind-html-compile'
 ]);
