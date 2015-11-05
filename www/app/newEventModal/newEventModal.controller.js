@@ -7,9 +7,10 @@ angular.module('lasius')
 
     $scope.inputs = {
       title: '',
-      body: ''
+      body: '',
+      start: new Date()
     };
-    
+
     $scope.newEvent = new Delayer([newEvent]);
 
     function newEvent(){

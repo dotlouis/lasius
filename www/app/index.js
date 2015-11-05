@@ -3,5 +3,6 @@ angular.module('lasius',[
     'ngResource',
     'satellizer',
     'lbServices',
-    'angular-bind-html-compile'
+    'angular-bind-html-compile',
+    'angularMoment'
 ]);
