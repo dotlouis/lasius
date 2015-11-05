@@ -1,0 +1,38 @@
+<div ng-controller="datepicker.controller">
+
+  <p>
+    On
+    <select-sheet
+      chip-name="'Day'"
+      chip-items="days"
+      ng-model="day"
+      chip-item-label="{itemProperty:'label'}"
+      ng-change="buildRRule({resetStarting: true});">
+      {{day.label || 'Day'}}
+    </select-sheet>
+  </p>
+  <p>
+    every
+    <select-sheet
+      chip-name="'Repetition'"
+      chip-items="repetitions"
+      ng-model="repetition"
+      chip-item-label="{itemProperty:'label'}"
+      ng-change="buildRRule({resetStarting: true});">
+      {{repetition.label || 'Repetition'}}
+    </select-sheet>
+  </p>
+
+  <p ng-hide="!startingDates || startingDates.length < 1">
+    starting
+    <select-sheet
+      chip-name="'Date'"
+      chip-items="startingDates"
+      chip-item-label="{itemProperty:'label'}"
+      ng-model="startingDate"
+      ng-change="buildRRule()">
+      {{startingDate.label || 'Date'}}
+    </select-sheet>
+  </p>
+
+</div>

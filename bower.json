@@ -6,7 +6,10 @@
     "lbservices": "git@bitbucket.org:studant/lbservices.git",
     "satellizer": "0.12.5",
     "angular-resource": "1.4.3",
-    "angular-bind-html-compile": "1.1.0"
+    "angular-bind-html-compile": "1.1.0",
+    "rrule": "2.1.0",
+    "moment": "2.10.6",
+    "angular-moment": "0.10.3"
   },
   "resolutions": {
     "angular": "1.4.3"
