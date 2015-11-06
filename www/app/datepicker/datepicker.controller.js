@@ -1,8 +1,7 @@
 angular.module('lasius')
 .controller('datepicker.controller', [
   '$scope',
-  '$filter',
-  function($scope, $filter){
+  function($scope){
 
     $scope.days = [
       { label: 'Monday', rule: RRule.MO },

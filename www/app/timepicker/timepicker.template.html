@@ -1,0 +1,14 @@
+<div ng-controller="timepicker.controller">
+
+  <div class="list list-inset">
+    <label class="item item-input">
+      <span class="input-label">Starting Time</span>
+      <input type="time" ng-model="inputs.startTime" ng-change="buildTime({from:'start'})">
+    </label>
+    <label class="item item-input">
+      <span class="input-label">Ending Time</span>
+      <input type="time" ng-model="inputs.endTime" ng-change="buildTime({from:'end'})">
+    </label>
+  </div>
+
+</div>
