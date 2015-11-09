@@ -14,7 +14,10 @@
       </label>
     </div>
 
-    <div ng-include="'app/datepicker/datepicker.template.html'"></div>
+    <datepicker first="inputs.startDate"
+      rrule="inputs.rrule"
+      end="inputs.endDate">
+    </datepicker>
 
     <div ng-include="'app/timepicker/timepicker.template.html'"></div>
 
