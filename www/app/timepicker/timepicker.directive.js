@@ -5,46 +5,54 @@ angular.module('lasius')
       restrict: 'E',
       templateUrl: 'app/timepicker/timepicker.template.html',
       scope: {
-        startTime: '=start',
-        endTime: '=end'
+        startInput: '=start',
+        endInput: '=end'
       },
       link: function(scope, element, attrs){
-        scope.startTime = moment(new Date()).startOf('hour');
-        scope.endTime = moment(scope.startTime).add(1,'hours');
 
-        scope.inputs = {
-          startTime: scope.startTime.toDate(),
-          endTime: scope.endTime.toDate()
-        };
+        var startTime;
+        var endTime;
 
         scope.buildTime = function(params){
 
           // if time not defined, we set it to now
-          if(!scope.inputs.startTime)
-            scope.startTime = moment(new Date()).startOf('hour');
+          if(!scope.startInput)
+            startTime = moment(new Date()).startOf('hour');
           else
-            scope.startTime = moment(scope.inputs.startTime);
+            startTime = moment(scope.startInput);
 
-          if(!scope.inputs.endTime)
-            scope.endTime = moment(scope.startTime).add(1,'hours');
+          if(!scope.endInput)
+            endTime = moment(startTime);
           else
-            scope.endTime = moment(scope.inputs.endTime);
+            endTime = moment(scope.endInput);
 
-
-          // if the end-time is the same of less than the start-time
+          // if the end-time is the same or less than the start-time
           // we update the corresponding time to match
-          if(scope.endTime.isSame(scope.startTime) || scope.endTime.isBefore(scope.startTime)){
-            if(params && params.from === 'start')
-              scope.endTime.add(1, 'hours').toDate();
-            else if(params && params.from === 'end')
-              scope.startTime.subtract(1, 'hours').toDate();
+          if(endTime.isSame(startTime) || endTime.isBefore(startTime)){
+            if(params && params.from === 'start'){
+              // if we go the next day, we stay just before it.
+              if(moment(startTime).add(1, 'hours').startOf('day').isSame(moment(startTime).add(1,'day').startOf('day')))
+                endTime.endOf('day').startOf('minute');
+              else
+                endTime = moment(startTime).add(1, 'hours');
+            }
+            else if(params && params.from === 'end'){
+              if(moment(endTime).subtract(1, 'hours').startOf('day').isSame(moment(endTime).subtract(1,'day').startOf('day')))
+                startTime.startOf('day');
+              else
+                startTime = moment(startTime).subtract(1, 'hours');
+
+              // console.log(startTime.subtract(1,'hours').hours());
+            }
           }
 
           // we set back the inputs to the calculated time
-          scope.inputs.startTime = scope.startTime.toDate();
-          scope.inputs.endTime = scope.endTime.toDate();
-
+          scope.startInput = startTime.toDate();
+          scope.endInput = endTime.toDate();
         };
+
+        scope.buildTime({from:'start'});
+
       }
     };
   }
