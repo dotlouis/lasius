@@ -7,7 +7,7 @@
       chip-items="days"
       ng-model="day"
       chip-item-label="{itemProperty:'label'}"
-      ng-change="buildRRule({resetStarting: true});">
+      ng-change="generateStartingDates(); setStartingDate();">
       {{day.label || 'Day'}}
     </select-sheet>
   </p>
@@ -18,7 +18,7 @@
       chip-items="repetitions"
       ng-model="repetition"
       chip-item-label="{itemProperty:'label'}"
-      ng-change="buildRRule({resetStarting: true});">
+      ng-change="generateStartingDates(); setStartingDate();">
       {{repetition.label || 'Repetition'}}
     </select-sheet>
   </p>
@@ -30,7 +30,7 @@
       chip-items="startingDates"
       chip-item-label="{itemProperty:'label'}"
       ng-model="startingDate"
-      ng-change="buildRRule()">
+      ng-change="setStartingDate();">
       {{startingDate.label || 'Date'}}
     </select-sheet>
   </p>
