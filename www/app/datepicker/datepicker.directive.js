@@ -71,7 +71,14 @@ angular.module('lasius')
 
           // we set the scope variables
           scope.rruleString = scope.rrule.toString();
-          scope.firstDate = moment(scope.startingDate.date).startOf('day').toDate();
+
+          var setDate = moment(scope.startingDate.date);
+          // We set the date only (we don't manipulate the time)
+          scope.firstDate = moment(scope.firstDate)
+            .year(setDate.year())
+            .month(setDate.month())
+            .day(setDate.day())
+            .toDate();
         };
 
       }
