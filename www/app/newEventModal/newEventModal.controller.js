@@ -8,7 +8,7 @@ angular.module('lasius')
     $scope.inputs = {
       title: '',
       body: '',
-      start: new Date()
+      start: moment().startOf('hours').toDate()
     };
 
     $scope.newEvent = new Delayer([newEvent]);
