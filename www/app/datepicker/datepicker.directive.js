@@ -49,7 +49,8 @@ angular.module('lasius')
                 nextDay: '[Tomorrow]',
                 nextWeek: '[Next] dddd',
                 lastDay: '[Yesterday]',
-                lastWeek: '[Last] dddd'
+                lastWeek: '[Last] dddd',
+                sameElse: 'll'
               }),
               date: date,
             });
