@@ -26,16 +26,15 @@ angular.module('lasius')
           { label: 'month', rule: RRule.MONTHLY }
         ];
 
-        scope.buildRRule = function(params){
+        // build the rule, each time the firstDate change
+        // from inside or outside the directive
+        scope.$watch('firstDate', function(){
+          scope.buildRRule();
+        });
+
+        scope.generateStartingDates = function(){
           if(!scope.repetition || !scope.day)
             return;
-
-          // we create the recurrence rule
-          scope.rrule = new RRule({
-            freq: scope.repetition.rule,
-            byweekday: scope.day.rule,
-            interval: scope.repetition.interval || 1
-          });
 
           // we generate the next occurences for the user to choose
           scope.startingDates = [];
@@ -57,29 +56,45 @@ angular.module('lasius')
             return i < 5;
           });
 
-          if(params && params.resetStarting)
-            scope.startingDate = scope.startingDates[0];
+          // we set the starting date to the closest matching day
+          scope.startingDate = scope.startingDates[0];
+        };
 
-          // we set the starting date if there is one
-          if(scope.startingDate)
-            scope.rrule.origOptions.dtstart = moment(scope.startingDate.date).startOf('day').toDate();
+        scope.setStartingDate = function(){
+          if(!scope.startingDate)
+            return;
+
+          var setDate = moment(scope.startingDate.date);
+
+          // We set the date only (we don't manipulate the time)
+          scope.firstDate = moment(scope.firstDate)
+            .year(setDate.year())
+            .dayOfYear(setDate.dayOfYear())
+            .toDate();
+        };
+
+
+        scope.buildRRule = function(){
+          if(!scope.repetition || !scope.day || !scope.firstDate)
+            return;
+
+          // we create the recurrence rule
+          scope.rrule = new RRule({
+            freq: scope.repetition.rule,
+            byweekday: scope.day.rule,
+            interval: scope.repetition.interval || 1,
+            dtstart: scope.firstDate
+          });
 
           // we generate the text rule before the count to skip the ("for x times")
           scope.rruleText = scope.rrule.toText();
 
+          // we set the count if there is one
           if(scope.repetition.count)
             scope.rrule.origOptions.count = scope.repetition.count;
 
           // we set the scope variables
           scope.rruleString = scope.rrule.toString();
-
-          var setDate = moment(scope.startingDate.date);
-          // We set the date only (we don't manipulate the time)
-          scope.firstDate = moment(scope.firstDate)
-            .year(setDate.year())
-            .month(setDate.month())
-            .day(setDate.day())
-            .toDate();
         };
 
       }
