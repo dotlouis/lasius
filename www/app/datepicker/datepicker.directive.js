@@ -86,9 +86,6 @@ angular.module('lasius')
             dtstart: scope.firstDate
           });
 
-          // we generate the text rule before the count to skip the ("for x times")
-          scope.rruleText = scope.rrule.toText();
-
           // we set the count if there is one
           if(scope.repetition.count)
             scope.rrule.origOptions.count = scope.repetition.count;
