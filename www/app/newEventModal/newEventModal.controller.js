@@ -5,11 +5,13 @@ angular.module('lasius')
   'Seeder',
   function($scope, Delayer, Seeder){
 
-    $scope.inputs = {
-      title: '',
-      body: '',
-      start: moment().startOf('hours').toDate()
-    };
+    $scope.inputs = {};
+
+    // reset the title and body each time the modal is shown
+    $scope.$on('modal.shown', function(){
+      $scope.inputs.title = '';
+      $scope.inputs.body = '';
+    });
 
     $scope.newEvent = new Delayer([newEvent]);
 
