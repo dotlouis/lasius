@@ -24,7 +24,9 @@ angular.module('lasius')
           if(!scope.endInput)
             endTime = moment(startTime);
           else
-            endTime = moment(scope.endInput);
+            endTime = moment(scope.endInput)
+              .year(startTime.year())
+              .dayOfYear(startTime.dayOfYear());
 
           // if the end-time is the same or less than the start-time
           // we update the corresponding time to match
@@ -41,8 +43,6 @@ angular.module('lasius')
                 startTime.startOf('day');
               else
                 startTime = moment(startTime).subtract(1, 'hours');
-
-              // console.log(startTime.subtract(1,'hours').hours());
             }
           }
 
