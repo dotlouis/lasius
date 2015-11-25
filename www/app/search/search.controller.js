@@ -15,6 +15,13 @@ angular.module('lasius')
 			}
 		});
 
+		$ionicModal.fromTemplateUrl('app/newEventModal/newEventModal.template.html', {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.newEventModal = modal;
+		});
+
     $scope.inputs = {
       query:''
     };
