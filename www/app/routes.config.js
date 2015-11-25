@@ -53,6 +53,18 @@ angular.module('lasius')
         }
       }
     })
+    .state('app.event', {
+      url: '/event/:id',
+      params: {
+        event: null
+      },
+      views: {
+        'main@app': {
+          templateUrl: 'app/event/event.template.html',
+          controller: 'event.controller'
+        }
+      }
+    })
     .state('app.search', {
       url: '/search?query',
       views: {

@@ -5,9 +5,11 @@
 }
 </style>
 
-<h2>{{event.title}}</h2>
 <button class="button button-outline button-positive"
   ng-click="event.state.toggle()">
   {{event.state.currentFn == 'unfollow' ? 'follow':'unfollow'}}
 </button>
-<p bind-html-compile="event.body | hashtags"></p>
+<div ui-sref="app.event({id: event.id, event: event})">
+  <h2>{{event.title}}</h2>
+  <p bind-html-compile="event.body | hashtags"></p>
+</div>
