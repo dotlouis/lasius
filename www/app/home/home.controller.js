@@ -8,8 +8,8 @@ angular.module('lasius')
 
 		$scope.fetchFollowing = new Delayer([fetchFollowing]);
 
-		$scope.$on('$ionicView.enter', function(){
-			$scope.fetchFollowing.toggle()
+		$scope.$on('$ionicView.beforeEnter', function(){
+			fetchFollowing()
 			.then(function(following){
 				$scope.events = following.events;
 			});
