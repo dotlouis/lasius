@@ -1,0 +1,17 @@
+<ion-view view-title="Profile">
+	<ion-content class="padding">
+		<ion-list>
+			<ion-item class="item-thumbnail-left">
+				<img ng-src="{{currentUser.profilePic}}">
+				<h2>{{currentUser.firstName}}</h2>
+				<p>{{currentUser.email}}</p>
+			</ion-item>
+			<ion-item>
+				Events you follow ({{profile.followingCount}})
+			</ion-item>
+			<ion-item>
+				Events you created ({{profile.createdCount}})
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
