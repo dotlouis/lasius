@@ -53,6 +53,15 @@ angular.module('lasius')
         }
       }
     })
+    .state('app.profile', {
+      url: '/profile',
+      views: {
+        'main@app': {
+          templateUrl: 'app/profile/profile.template.html',
+          controller: 'profile.controller'
+        }
+      }
+    })
     .state('app.event', {
       url: '/event/:id',
       params: {
