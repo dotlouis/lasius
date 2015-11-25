@@ -7,10 +7,12 @@ angular.module('lasius')
 
     $scope.inputs = {};
 
-    // reset the title and body each time the modal is shown
+    // reset the inputs each time the modal is shown
     $scope.$on('modal.shown', function(){
       $scope.inputs.title = '';
       $scope.inputs.body = '';
+      $scope.inputs.speaker = '';
+      $scope.inputs.room = '';
     });
 
     $scope.newEvent = new Delayer([newEvent]);
