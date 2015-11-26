@@ -1,11 +1,38 @@
 <ion-view view-title="Home">
 	<ion-content>
 		<ion-list>
-			<ion-item ng-repeat="event in events"
-				ng-include="'app/eventCard/eventCard.template.html'"
-				ng-controller="eventCard.controller"
-				class="item-button-right">
-			</ion-item>
+			<!-- Flattened template -->
+			<!-- <div ng-include="'flattenedCalendar.html'"></div> -->
+
+			<!-- Nested template -->
+			<div ng-include="'nestedCalendar.html'"></div>
+
 		</ion-list>
 	</ion-content>
 </ion-view>
+
+
+<script type="text/ng-template" id="nestedCalendar.html">
+	<div ng-repeat="day in calendar">
+		<div class="item item-divider">
+			{{day.date | amDateFormat:'dddd Do MMMM YYYY'}}
+		</div>
+		<div ng-repeat="event in day.events"
+			class="item">
+			{{event.details.title}}
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="flattenedCalendar.html">
+	<div ng-repeat="item in calendar">
+		<div ng-if="item.type==='day'"
+			class="item item-divider">
+			{{item.value | amDateFormat:'dddd Do MMMM YYYY'}}
+		</div>
+		<div ng-if="item.type==='event'"
+			class="item">
+			{{item.value.details.title}}
+		</div>
+	</div>
+</script>

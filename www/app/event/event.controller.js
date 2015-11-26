@@ -28,6 +28,6 @@ angular.module('lasius')
         return Event.get({
           id: $stateParams.id
         }).$promise;
-      }
+    }
 	}
 ]);

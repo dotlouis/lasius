@@ -5,18 +5,20 @@ angular.module('lasius')
 	'Seeder',
 	function($scope, Delayer, Seeder){
 
-		$scope.fetchFollowing = new Delayer([fetchFollowing]);
-
 		$scope.$on('$ionicView.beforeEnter', function(){
-			fetchFollowing()
-			.then(function(following){
-				$scope.events = following.events;
+			fetchCalendar()
+			.then(function(calendar){
+				$scope.calendar = calendar.calendar;
 			});
 		});
 
-		function fetchFollowing(){
-			return Seeder.prototype$getFollowing({
-				id: $scope.currentUser.id
+		function fetchCalendar(mode){
+			if(mode !== 'flat')
+				delete mode;
+
+			return Seeder.prototype$getCalendar({
+				id: $scope.currentUser.id,
+				mode: mode
 			}).$promise;
 		}
 
