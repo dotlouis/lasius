@@ -13,7 +13,7 @@ angular.module('lasius')
       }
     };
 
-    $authProvider.baseUrl = APP_CONFIG.API_HOST;
+    $authProvider.baseUrl = APP_CONFIG.API_PATH;
     // important ! otherwise the auth token does not get recognized
     // leading to Unauthorized server response.
     $authProvider.authHeader = 'Satellizer';
@@ -27,7 +27,7 @@ angular.module('lasius')
       $authProvider.platform = 'mobile';
 
     $authProvider.facebook(angular.extend(commonConfig,{
-      url: APP_CONFIG.API_PATH+'/Seeders/facebook',
+      url: '/Seeders/facebook',
       clientId: APP_CONFIG.FB_APP_ID,
       scope: ['public_profile','email','user_friends']
     }));
