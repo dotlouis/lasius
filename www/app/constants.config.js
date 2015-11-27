@@ -1,4 +1,6 @@
 angular.module('lasius')
+// self-executing functions as constant:
+// http://michalostruszka.pl/blog/2012/12/23/angular-better-constant-values/
 .constant('APP_CONFIG',(function(){
   var params = {
     VERSION: '1',
@@ -9,6 +11,5 @@ angular.module('lasius')
     API_ENDPOINT: '/api'
   };
   params.API_PATH = params.API_HOST+params.API_ENDPOINT+'/v'+params.API_VERSION;
-  console.log(params);
   return params;
 })());
