@@ -14,11 +14,10 @@ angular.module('lasius')
         signedUser: function(Seeder, $q, $state){
           // if the user is authenticated, we don't resolve so he
           // can't access the welcome state
-          if(Seeder.isAuthenticated())
-            return $q.reject()
-            .catch(function(){
-              $state.go('app.home');
-            });
+          Seeder.getCurrent().$promise
+          .then(function(){
+            $state.go('app.home');
+          });
         }
       }
     })
@@ -31,12 +30,6 @@ angular.module('lasius')
         signedUser: function(Seeder, $state){
           // if the user exists/is authenticated, we resolve with it's value
           // so the controllers are only loaded when the user value is injected
-
-          // why the hell is this null ?
-          // console.log(Seeder.getCachedCurrent());
-
-          // in the futur, try to load a cached user instead of hitting the
-          // network each time the app is loaded into memory
           return Seeder.getCurrent().$promise
           .catch(function(){
             $state.go('welcome');

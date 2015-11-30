@@ -2,9 +2,10 @@ angular.module('lasius')
 .factory('auth.service',[
   '$auth',
   '$q',
+  '$cachedResource',
   'LoopBackAuth',
   'Seeder',
-  function($auth, $q, LoopBackAuth, Seeder){
+  function($auth, $q, $cachedResource, LoopBackAuth, Seeder){
     return {
       loginWith: function(provider){
         return $auth.authenticate(provider)
@@ -22,29 +23,20 @@ angular.module('lasius')
         });
       },
       logout: function(){
-        var isAuthenticated = Seeder.isAuthenticated();
-        var access_token = LoopBackAuth.accessTokenId;
+        var logoutRequest;
 
-        // We immediately delete the token wether or not the logout
-        // request resolves
-        LoopBackAuth.clearUser();
-        LoopBackAuth.save();
-        LoopBackAuth.clearStorage();
+        if(Seeder.isAuthenticated())
+          logoutRequest = Seeder.logout().$promise;
+        else
+          logoutRequest = $q.resolve();
 
-        // we put back the token so the logout request can be authorized
-        LoopBackAuth.accessTokenId = access_token;
+        return logoutRequest.finally(function(){
 
-        // if the user is not authenticated we can't send a requestError
-        // so we only empty the localstorage
-        if(!isAuthenticated)
-          return $q.resolve();
+          LoopBackAuth.clearUser();
+          LoopBackAuth.save();
+          LoopBackAuth.clearStorage();
+          $cachedResource.clearCache({clearPendingWrites: true});
 
-        return Seeder.logout()
-        .$promise.then(function(){
-          // We nullify the access token once the request has been resolved
-          LoopBackAuth.accessTokenId = null;
-        })
-        .catch(function(err){
           // TODO report error to allow the server to destroy
           // the token when connectivity is back
         });
