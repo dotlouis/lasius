@@ -8,21 +8,21 @@ angular.module('lasius')
   var APIInterceptor = {
     // On request success
     request: function(config) {
+      // Set a timeout for all request.
+      // Past that time, the application is considered offline
+      config.timeout = 5000;
       //Return the config or wrap it in a promise if blank.
       return config || $q.when(config);
     },
 
     // On request failure
     requestError: function(rejection) {
-      //  console.log('$httpInterceptor2',rejection); // Contains the data about the error on the request.
-
       // Return the promise rejection.
       return $q.reject(rejection);
     },
 
     // On response success
     response: function(response) {
-      //    console.log('$httpInterceptor3',response); // Contains the data from the response.
 
       // Return the response or promise.
       return response || $q.when(response);
