@@ -7,27 +7,16 @@ angular.module('lasius')
 
 		$scope.fetchFollowing = new Delayer([fetchFollowing]);
 
-		$scope.$on('$ionicView.beforeEnter', function(){
-			fetchFollowing();
-		});
+		$scope.$on('$ionicView.beforeEnter', fetchFollowing);
+		$scope.$on('doRefresh', fetchFollowing);
 
 		function fetchFollowing(){
-			var res = Seeder.prototype$getFollowing({
-				id: $scope.currentUser.id
-			});
-			res.$promise.then(function(cacheFollowing){
-				// console.log(cacheFollowing);
-				$scope.events = cacheFollowing.events;
+			return Seeder.prototype$getFollowing({
+				id: $scope.currentUser.id,
+				method: 'getFollowing'
 			})
-			.catch(function(cacheErr){
-				// console.log(cacheErr);
-			});
-			return res.$httpPromise.then(function(following){
-				// console.log(following);
+			.$promise.then(function(following){
 				$scope.events = following.events;
-			})
-			.catch(function(err){
-				// console.log(err);
 			});
 		}
 
