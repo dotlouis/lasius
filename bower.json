@@ -9,7 +9,8 @@
     "angular-bind-html-compile": "1.1.0",
     "rrule": "2.1.0",
     "moment": "2.10.6",
-    "angular-moment": "0.10.3"
+    "angular-moment": "0.10.3",
+    "angular-cached-resource": "~1.4.2"
   },
   "resolutions": {
     "angular": "1.4.3"
