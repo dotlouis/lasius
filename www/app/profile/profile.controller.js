@@ -3,17 +3,19 @@ angular.module('lasius')
 	'$scope',
 	'Seeder',
 	function($scope, Seeder){
-		$scope.$on('$ionicView.beforeEnter', function(){
-			fetchProfile()
-      .then(function(profile){
-				$scope.profile = profile.profile;
-      });
-    });
+
+		$scope.$on('$ionicView.beforeEnter', fetchProfile);
+		$scope.$on('doRefresh', fetchProfile);
 
 		function fetchProfile(){
 			return Seeder.prototype$getProfile({
-				id: $scope.currentUser.id
-			}).$promise;
+				id: $scope.currentUser.id,
+				method: 'getProfile'
+			}).$promise
+			.then(function(profile){
+				console.log(profile);
+				$scope.profile = profile.profile;
+      });
 		}
 	}
 ]);
