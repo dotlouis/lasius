@@ -1,14 +1,21 @@
 angular.module('lasius')
 // Replace the resource object created by loopback service generator
 // by a cachedResource object to enable offline behavior
+// see LoopBackResource in lb-services
 .decorator('LoopBackResource',[
   '$delegate',
   '$cachedResource',
   function($delegate, $cachedResource, APP_CONFIG){
+    var dontCache = ['esSearch'];
+    
     return function(url, params, actions) {
 
-      // the only line that changed from the original resource definition
-      // see LoopBackResource in lb-services
+      actions = _.mapValues(actions, function(action, key){
+        if(_.includes(dontCache, key))
+          action.cache = false;
+        return action;
+      });
+
       var resource = $cachedResource(url, url, params, actions);
 
       resource.prototype.$save = function(success, error) {
