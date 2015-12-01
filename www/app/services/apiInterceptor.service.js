@@ -5,24 +5,33 @@ angular.module('lasius')
   '$rootScope',
   function($q, $injector, $rootScope){
 
+  function isTemplate(config){
+    if(config.url.indexOf('template.html') > -1)
+      return true;
+    return false;
+  }
+
   var APIInterceptor = {
     // On request success
     request: function(config) {
+      // Set a timeout for all request.
+      // Past that time, the application is considered offline
+      config.timeout = 5000;
       //Return the config or wrap it in a promise if blank.
       return config || $q.when(config);
     },
 
     // On request failure
     requestError: function(rejection) {
-      //  console.log('$httpInterceptor2',rejection); // Contains the data about the error on the request.
-
       // Return the promise rejection.
       return $q.reject(rejection);
     },
 
     // On response success
     response: function(response) {
-      //    console.log('$httpInterceptor3',response); // Contains the data from the response.
+      // Does not take into account template requests
+      if(!isTemplate(response.config))
+        $rootScope.$broadcast('serverAvailable', response.data);
 
       // Return the response or promise.
       return response || $q.when(response);
@@ -30,17 +39,21 @@ angular.module('lasius')
 
     // On response failture
     responseError: function(rejection) {
+      if(!isTemplate(rejection.config)){
+        if(rejection.status === 0){
+          rejection.data = {message:"Can't reach the server", name:"Error", status: 0, statusCode: 0};
+          $rootScope.$broadcast('serverUnavailable', rejection.data);
+        }
+        else{
+          $rootScope.$broadcast('serverAvailable', rejection.data);
 
-      // This will capture all HTTP errors such as 401 errors so be careful with your code. You can however
-      // examine the "rejection" object so you can add more filtering
-
-      if(rejection.status === 0){
-        rejection.data = {message:"Can't reach the server", name:"Error", status: 0, statusCode: 0};
-        $rootScope.$broadcast('serverUnavailable', rejection.data);
+          // rejection.data is required because of some weird unauthorized
+          // Seeder/__anonymous__ request which doesn't have any data
+          if(rejection.status === 401 && rejection.data){
+            $rootScope.$broadcast('unauthorized', rejection);
+          }
+        }
       }
-      // http://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK#AngularJSJavaScriptSDK-Handling401Unauthorized
-      else if(rejection.status === 401)
-        $rootScope.$broadcast('unauthorized', {message: 'you have been logged out'});
 
       // Return the promise rejection.
       return $q.reject(rejection);

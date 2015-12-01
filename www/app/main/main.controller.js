@@ -12,12 +12,14 @@ angular.module('lasius')
     $scope.currentUser = signedUser;
 
     $scope.logout = function(){
-      Auth.logout();
-      $ionicHistory.nextViewOptions({
-        disableBack: false,
-        historyRoot: true
+      Auth.logout()
+      .finally(function(){
+        $ionicHistory.nextViewOptions({
+          disableBack: false,
+          historyRoot: true
+        });
+        $state.go('welcome');
       });
-      $state.go('welcome');
     };
 
     $ionicPopover.fromTemplateUrl('app/menuPopover/menuPopover.template.html', {

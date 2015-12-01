@@ -13,7 +13,7 @@ angular.module('lasius')
       }
     };
 
-    $authProvider.baseUrl = APP_CONFIG.API_ENDPOINT;
+    $authProvider.baseUrl = APP_CONFIG.API_PATH;
     // important ! otherwise the auth token does not get recognized
     // leading to Unauthorized server response.
     $authProvider.authHeader = 'Satellizer';
@@ -27,7 +27,7 @@ angular.module('lasius')
       $authProvider.platform = 'mobile';
 
     $authProvider.facebook(angular.extend(commonConfig,{
-      url: '/api/Seeders/facebook',
+      url: '/Seeders/facebook',
       clientId: APP_CONFIG.FB_APP_ID,
       scope: ['public_profile','email','user_friends']
     }));
@@ -40,22 +40,27 @@ angular.module('lasius')
 .run([
   '$rootScope',
   '$state',
+  '$ionicHistory',
+  '$ionicPopup',
   'auth.service',
   'Seeder',
-  function($rootScope, $state, Auth, Seeder){
-  // don't logout whenever there is an unauthorize.
-  // prefer a message (in theory this should never happen)
-  // logout only when the getCurrentId fails.
+  function($rootScope, $state, $ionicHistory, $ionicPopup, Auth, Seeder){
+  // Inform user and logout when Unauthorized response
   $rootScope.$on('unauthorized',function(event, args){
-    Auth.logout();
-    $state.go('welcome', { message: args.message });
-  });
-  $rootScope.$on('serverUnavailable',function(event, args){
-    // for now logout the user to avoid a BSoD
-    // in the futur implement some kind of cache so even if the server
-    // is unavailable the user can still use the app.
-    // see the resolve function in routes.js
-      Auth.logout();
-      $state.go('welcome', { message: args.message });
-  });
+    $ionicPopup.alert({
+      title: 'An error occurred!',
+      template: 'You have been logged out'
+    })
+    .then(function(res){
+      Auth.logout()
+      .finally(function(){
+        $ionicHistory.nextViewOptions({
+          disableBack: false,
+          historyRoot: true
+        });
+        $state.go('welcome');
+      });
+    });
+   });
+
 }]);
