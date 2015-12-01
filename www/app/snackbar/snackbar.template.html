@@ -1,0 +1,40 @@
+<style>
+    .snackbar{
+        z-index: 9999;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        padding: 15px;
+        background: #323232;
+        color: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        /*transition: transform .3s ease-in .1s;
+        transform: translate3d(0,0,0);*/
+    }
+    .snackbar.ng-hide{
+        /*transform: translate3d(0, 50px, 0);*/
+    }
+    .snackbar .button{
+        float: right;
+        margin-top: -5px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .snackbar .spinner{
+      float: right;
+      margin-top: -5px;
+    }
+</style>
+<div class="snackbar" ng-hide="isOnline">
+  {{message}}
+  <ion-spinner icon="dots"
+    ng-show="isFetching"
+    class="spinner spinner-calm"
+    ></ion-spinner>
+  <button class="button button-clear button-calm button-small"
+    ng-click="refresh()"
+    ng-hide="isFetching">
+    Retry
+  </button>
+</div>

@@ -27,7 +27,8 @@ angular.module('lasius')
           return $q.resolve({});
 
         return this.model.esSearch({
-          queryString: queryString
+          queryString: queryString,
+          method: 'esSearch'
         }).$promise;
       };
 

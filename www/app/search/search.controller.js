@@ -8,12 +8,8 @@ angular.module('lasius')
   'Event',
 	function($scope, $ionicModal, $stateParams, Delayer, Query, Event){
 
-		$scope.$on('$ionicView.enter', function(){
-			if(typeof $stateParams.query === 'string'){
-				$scope.inputs.query = $stateParams.query;
-				$scope.search.toggle();
-			}
-		});
+		$scope.$on('$ionicView.enter', search);
+		$scope.$on('doRefresh', search);
 
 		$ionicModal.fromTemplateUrl('app/newEventModal/newEventModal.template.html', {
 			scope: $scope,
@@ -34,6 +30,9 @@ angular.module('lasius')
     var eventQuery = new Query(Event);
 
     function search(){
+			if(typeof $stateParams.query === 'string')
+				$scope.inputs.query = $stateParams.query;
+
       return eventQuery.search($scope.inputs.query)
       .then(function(results){
         $scope.events = results.events;

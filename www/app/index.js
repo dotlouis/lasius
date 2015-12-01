@@ -4,5 +4,6 @@ angular.module('lasius',[
     'satellizer',
     'lbServices',
     'angular-bind-html-compile',
-    'angularMoment'
+    'angularMoment',
+    'ngCachedResource'
 ]);
